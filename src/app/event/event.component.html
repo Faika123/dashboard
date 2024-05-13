@@ -1,0 +1,80 @@
+<app-siderbar></app-siderbar>
+<app-navbar></app-navbar>
+<div class="overflow-x-auto pl-96 justify-center">
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24  ">
+          <div class="flex space-x-80">
+              <h1 class="text-xl font-semibold p-6 pl-14 pr-8 italic text-black">Liste des évènements</h1>
+  
+         
+              <div class="flex space-x-4 pl-40">
+                  <div>
+                      <button class="mt-6 font-semibold text-xs relative group overflow-hidden px-4 h-8 rounded-full flex space-x-2 items-center
+                       border-green-800 bg-green-800 hover:bg-green-500 text-white " type="button" routerLink="/ajouter">
+                              Ajouter un évènement
+                      </button>
+                  </div>
+                  
+              </div>        
+                  
+          </div>
+  
+            <table class="w-96 md:w-4/5 ml-6 items-center bg-transparent border-collapse">
+                <thead>
+                    <tr>
+                        <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            ID
+                        </th>
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            Photo
+                        </th>
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            Titre
+                        </th>
+                        <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            Description
+                        </th>
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            lieu
+                        </th>
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let event of evenements">
+                        <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                            {{ event.id }}
+                        </th>
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-normal p-4 text-center">
+                            <img [src]="event.photo_url" alt="Photo">
+                        </td>
+                        
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{ event.titre }}
+                        </td>
+                        <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-normal p-4 text-justify">
+                            <div class="max-h-24 overflow-y-auto">{{ event.description }}</div>
+                        </td>
+                        
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{ event.lieu}}
+                        </td>
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                            <form action="" method="get" class="flex space-x-2">
+                                <button type="submit" class="text-white px-4 h-8 rounded-full flex items-center border border-red-500 bg-red-500" (click)="deleteEvent(event.id)">
+                                    Supprimer
+                                </button>
+                                <button type="submit" class="text-white px-4 h-8 rounded-full flex items-center border border-green-800 bg-green-800" routerLink="/admin/ajouter">
+                                    Modifier
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+  </div>
+  

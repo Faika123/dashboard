@@ -1,0 +1,92 @@
+<app-siderbar></app-siderbar>
+<app-navbar></app-navbar>
+<div>
+    <div class="md:flex pl-96 mt-16">
+        <div>
+      
+        </div>
+
+        <div class="md:w-4/5">
+          
+         
+            <div class="flex space-x-80">
+                <h1 class="text-xl font-semibold p-6 pl-14 pr-8 italic">Liste des catégories</h1>
+
+           
+                <div class="flex space-x-4 pl-32">
+                    <div>
+                        <button class="mt-6 font-semibold text-xs relative group overflow-hidden px-4 h-8 rounded-full flex space-x-2 items-center
+                         border-green-800 bg-green-800 hover:bg-green-500 text-white" type="button" routerLink="/ajouter-categorie">
+                            
+                                Ajouter une catégorie
+                          
+                        </button>
+                    </div>
+                    
+                </div>        
+                    
+            </div>
+            
+            <table class="w-96 md:w-4/5 ml-14 items-center bg-transparent border-collapse">
+                <thead>
+                    <tr>
+                        <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            ID
+                        </th>
+   
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            NOM
+                        </th>
+
+                        <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            description
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-800 text-white border-gray-700">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+
+               
+                <tbody>
+                    <tr *ngFor="let cat of categories">
+                        <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left flex items-center">
+                            {{ cat.id }}
+                        </th>
+                            
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                            {{ cat.nom }}
+                        </td>
+
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-justify">
+                            {{ cat.description }}
+                        </td>
+                        
+                        <td class="flex gap-2 border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                            <button class="text-white text-semibold px-4 h-8 rounded-full flex space-x-2 items-center border-green-800 bg-green-800 hover:bg-green-500" 
+                            type="button" 
+                            [routerLink]="['/modifier-categorie', cat.id]"> 
+                        Modifier 
+                    </button>
+                    
+                            
+                            <form method="get" action="">
+                                <button class="text-white text-semibold px-4 h-8 rounded-full flex space-x-2 items-center border border-red-500 bg-red-500 hover:bg-red-700"  (click)="deleteCat(cat.id)">
+                                    Supprimer
+                                </button>
+                                
+                      
+                            </form>    
+                        </td>
+                    </tr>            
+                </tbody>
+             
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
