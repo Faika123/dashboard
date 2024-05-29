@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenStorageService } from '../token-service/token-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,23 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  isLoggedIn = false;
+  email?: string;
+
+  constructor(private tokenStorageService: TokenStorageService) { }
+
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.email = user.email;
+
+    }
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
 }

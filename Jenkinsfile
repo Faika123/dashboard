@@ -43,7 +43,7 @@ pipeline {
         
         }
 
-         /* stage('Deploy Docker image') {
+         stage('push Docker image') {
             steps {
                 script {
                     // Push Docker image to Docker Hub
@@ -53,7 +53,15 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
+                stage('SonarQube Analysis') {
+            steps {
+                // Exécuter l'analyse SonarQube
+                withSonarQubeEnv('sonarquabe') {
+                    bat '"C:\\Program Files\\sonar-scanner-5.0.1.3006-windows\\bin\\sonar-scanner" -Dsonar.projectKey=microservices-security'
+                }
+            }
+        }
     }
 
 }

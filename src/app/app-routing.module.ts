@@ -40,10 +40,8 @@ const routes: Routes = [
         path: 'event',
         component: EventComponent,
       },
-      {
-        path: 'ajouter',
-        component: AjouterComponent,
-      },
+      { path: 'ajouter', component: AjouterComponent },
+      { path: '', redirectTo: '/ajouter', pathMatch: 'full' },
       {
         path: 'ajouter-categorie',
         component: AjouterCategorieComponent,

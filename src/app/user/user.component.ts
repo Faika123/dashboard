@@ -19,13 +19,13 @@ export class UserComponent implements OnInit {
   }
 
   listerUtilisateurs(): void {
-    this.http.get<any[]>('http://localhost:3005/lister').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5000/authService/lister').subscribe(data => {
       this.utilisateurs = data;
     });
   }
 
   DeleteUser(id: number): void {
-    this.http.delete(`http://localhost:3005/${id}/supprimer`).subscribe(() => {
+    this.http.delete(`http://localhost:5000/authService/${id}/supprimer`).subscribe(() => {
       this.utilisateurs = this.utilisateurs.filter(u => u.id !== id);
     });
   }
@@ -47,7 +47,7 @@ export class UserComponent implements OnInit {
     console.log('queryParams:', queryParams);
 
     // Construire l'URL avec les paramètres de requête
-    let url = 'http://localhost:3005/rechercher?';
+    let url = 'http://localhost:5000/authService/rechercher?';
     Object.keys(queryParams).forEach(key => {
         url += `${key}=${queryParams[key]}&`;
     });

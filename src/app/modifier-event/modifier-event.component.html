@@ -1,2 +1,72 @@
+<!-- ajouter.component.html -->
 <app-siderbar></app-siderbar>
 <app-navbar></app-navbar>
+<h1 class="text-xl font-semibold p-6 pl-14 pr-8 italic">Modifier la catégorie</h1>
+
+<form [formGroup]="evenements" (ngSubmit)="onSubmit()" class="mt-10 pl-48" enctype="multipart/form-data">
+  <div class="w-96 mx-auto md:mb-10 md:grid md:grid-cols-2 md:gap-4 md:w-3/5 md:h-3/6 bg-gray-100 mt-2 pt-5 md:ml-72 pl-9 shadow-lg rounded-lg">
+    <div class="mt-2">
+      <div>
+        <label for="titre" class="block text-sm font-medium text-gray-700">Titre</label>
+        <input formControlName="titre" type="text" name="titre" class="py-1.5 px-3 border rounded-md mt-1 block w-80" required>
+      </div>
+
+      <div class="mt-2">
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea formControlName="description" id="description" name="description" rows="6" class="py-1.5 px-3 border rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-80 sm:text-sm" placeholder="Une description concernant un évènement" required></textarea>
+      </div>
+
+      <div class="mt-2">
+        <label for="prix" class="block text-sm font-medium text-gray-700">Prix</label>
+        <input formControlName="prix" type="text" name="prix" class="py-1.5 px-3 border rounded-md mt-1 block w-80" required>
+      </div>
+      <div>
+        <label for="lieu" class="block text-sm font-medium text-gray-700">Lieu</label>
+        <input formControlName="lieu" type="text" name="lieu" class="py-1.5 px-3 border rounded-md mt-1 block w-80" required>
+      </div>
+      <div class="mt-2">
+        <label for="places_disponibles" class="block text-sm font-medium text-gray-700">Places disponibles</label>
+        <input formControlName="places_disponibles" type="number" name="places_disponibles" class="py-1.5 px-3 border rounded-md mt-1 block w-80" required>
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <label class="block text-sm font-medium text-gray-700">Date de début</label>
+      <div class="mt-1 flex">
+        <label class="block flex-1">
+          <input formControlName="date_deb" type="datetime-local" class="form-input py-1.5 px-3 mt-1 block w-80 text-gray-700" placeholder="date_deb" required>
+        </label>
+      </div>
+
+      <div class="mt-3">
+        <label class="block text-sm font-medium text-gray-700">Date de fin</label>
+        <div class="mt-1 flex">
+          <label class="block flex-1">
+            <input formControlName="date_fin" type="datetime-local" class="form-input py-1.5 px-3 mt-1 block w-80 text-gray-700" placeholder="date_fin" required>
+          </label>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label for="categorie" class="block text-sm font-medium text-gray-700">Catégories</label>
+        <select formControlName="categorie_id" id="categorie" name="categorie" class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm" required>
+          <option *ngFor="let categorie of categories" [value]="categorie.id">{{ categorie.nom }}</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Télécharger une photo</label>
+        <img src="assets/img" alt="">
+        <div class="flex items-center justify-center w-80">
+          <input (change)="onFileChange($event)" type="file" name="photo" class="form-control block w-full px-2 py-1 h-10 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-600 focus:outline-none" accept="image/*" required />
+        </div>
+      </div>
+    </div>
+
+    <div class="mr-24 pb-4 mt-8 md:ml-80">
+      <button type="submit" class="h-9 w-44 p-1 justify-center border rounded-md hover:bg-white text-white" style="background-color: #0d5603;">
+        Modifier un évènement
+      </button>
+    </div>
+  </div>
+</form>

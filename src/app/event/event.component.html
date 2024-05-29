@@ -1,13 +1,13 @@
 <app-siderbar></app-siderbar>
 <app-navbar></app-navbar>
-<div class="overflow-x-auto pl-96 justify-center">
+<div class=" pl-48">
     <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24  ">
+        <div class="container px-5 py-24">
           <div class="flex space-x-80">
               <h1 class="text-xl font-semibold p-6 pl-14 pr-8 italic text-black">Liste des évènements</h1>
   
          
-              <div class="flex space-x-4 pl-40">
+              <div class="flex space-x-4 pl-48">
                   <div>
                       <button class="mt-6 font-semibold text-xs relative group overflow-hidden px-4 h-8 rounded-full flex space-x-2 items-center
                        border-green-800 bg-green-800 hover:bg-green-500 text-white " type="button" routerLink="/ajouter">
@@ -66,7 +66,7 @@
                                 <button type="submit" class="text-white px-4 h-8 rounded-full flex items-center border border-red-500 bg-red-500" (click)="deleteEvent(event.id)">
                                     Supprimer
                                 </button>
-                                <button type="submit" class="text-white px-4 h-8 rounded-full flex items-center border border-green-800 bg-green-800" routerLink="/admin/ajouter">
+                                <button type="submit" class="text-white px-4 h-8 rounded-full flex items-center border border-green-800 bg-green-800" [routerLink]="['/modifier-event', event.id]"> 
                                     Modifier
                                 </button>
                             </form>

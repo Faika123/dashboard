@@ -1,30 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ajouter',
   templateUrl: './ajouter.component.html',
-  styleUrls: ['./ajouter.component.css'],
+  styleUrls: ['./ajouter.component.css']
 })
-export class AjouterComponent {
+export class AjouterComponent implements OnInit {
+  ajouterForm: FormGroup;
   categories: any[] = [];
-  selectedCategorieid: number | null = null ;
-  ajouter: any = {
-    titre: '',
-    description: '',
-    prix: '',
-    lieu: '',
-    places_disponibles: '', 
-    date_deb: '',
-    date_fin: '',
-    categorie_id: '', // Updated property name to match database column
-    photo_url: null
-  };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  baseUrl = 'http://localhost:3001/uploads/';
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+    this.ajouterForm = this.fb.group({
+      titre: ['', Validators.required],
+      description: ['', Validators.required],
+      prix: ['', Validators.required],
+      lieu: ['', Validators.required],
+      places_disponibles: ['', Validators.required],
+      date_deb: ['', Validators.required],
+      date_fin: ['', Validators.required],
+      categorie_id: ['', Validators.required],
+      photo: [null, Validators.required]
+    });
+  }
+
+  ngOnInit() {
     this.listerCategories();
   }
 
@@ -35,52 +39,38 @@ export class AjouterComponent {
     });
   }
 
-  // Function to get the selected category ID
-  getSelectedCategoryId(categorie_id:number): void {
- this.selectedCategorieid = categorie_id;
-  }
-
-  // Function to get category by ID
-  getCategoryById(id: number): void {
-    this.http.get<any>(`http://localhost:3006/${id}/listerbyid`).subscribe(
-      (category) => {
-        console.log('Category:', category);
-        // Handle the retrieved category data as needed
-      },
-      (error) => {
-        console.error('Error fetching category:', error);
-      }
-    );
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.ajouterForm.patchValue({
+        photo: file
+      });
+    }
   }
 
   onSubmit() {
-    const formData = new FormData();
-    formData.append('titre', this.ajouter.titre);
-    formData.append('description', this.ajouter.description);
-    formData.append('prix', this.ajouter.prix);
-    formData.append('photo', this.ajouter.photo);
-    formData.append('photo', this.ajouter.photo);
-    formData.append('photo', this.ajouter.photo);
-    formData.append('photo', this.ajouter.photo);
-    formData.append('photo', this.ajouter.photo); // Ajout de la photo au FormData
-
-    this.http.post<any>('http://localhost:3006/ajouter', formData)
-      .subscribe(
-        (response) => {
-          console.log('Événement ajouté avec succès.', response);
-          this.router.navigateByUrl('/event');
-        },
-        (error) => {
-          console.error('Erreur lors de l\'envoi de la requête :', error);
-        }
-      );
-  }
-
-  onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.ajouter.photo = file; // Stocker le fichier sélectionné dans la propriété photo
+    if (this.ajouterForm.invalid) {
+      return;
     }
+
+    const formData = new FormData();
+    Object.keys(this.ajouterForm.controls).forEach(key => {
+      const control = this.ajouterForm.get(key);
+      if (control) {
+        formData.append(key, control.value);
+      }
+    });
+
+    this.http.post('http://localhost:3006/ajouter', formData).subscribe(
+      response => {
+        console.log('Événement ajouté avec succès');
+        this.router.navigateByUrl('/event');
+
+        
+      },
+      error => {
+        console.error('Erreur lors de l\'ajout de l\'événement', error);
+      }
+    );
   }
-  
 }
